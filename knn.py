@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score
 warnings.filterwarnings('ignore')
-
+print (1)
 stu=pd.read_csv(r'data\data.csv')
 
 
