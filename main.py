@@ -6,7 +6,6 @@ import numpy as np
 app = Flask(__name__)
 app.debug = True
 
-
 @app.route('/')
 def hello_world():
     f2 = open('model/svm.model', 'rb')
@@ -19,8 +18,6 @@ def hello_world():
     # expected = test_y
     predicted = model1.predict(np.array(l1).reshape(1,-1))
     return str(predicted)
-
-
 
 @app.route('/login')
 def login():

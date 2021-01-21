@@ -117,6 +117,7 @@ for n in n_neighbors:
 
 
 # In[71]:
+from sklearn.preprocessing import LabelEncoder
 
 
 plt.plot(range(1,31), accuracy_list)
@@ -126,14 +127,73 @@ plt.ylabel('accuracy')
 
 # In[73]:
 
+train_data = pd.read_csv("data/data.csv")
+train_Y = train_data["Class"]
+train_X = train_data.drop(columns=['Class'])
+# train_X = train_data.drop(columns=['NationalITy','ParentschoolSatisfaction','StudentAbsenceDays','Class','GradeID','SectionID','Topic','Relation','Semester','StageID','PlaceofBirth'])
+def cope_X(df):
+    genderEncoder = LabelEncoder()
+    NationEncoder = LabelEncoder()
+    BirthEncoder = LabelEncoder()
+    StagedEncoder = LabelEncoder()
+    GradeEncoder = LabelEncoder()
+    SectionsEncoder = LabelEncoder()
+    TopicsEncoder = LabelEncoder()
+    SemesterEncoder = LabelEncoder()
+    RelationEncoder = LabelEncoder()
+    ParentAnsweringSurveyEncoder = LabelEncoder()
+    ParentschoolSatisfactionEncoder = LabelEncoder()
+    StudentAbsenceDaysEncoder = LabelEncoder()
+
+    df.gender = genderEncoder.fit_transform(df.gender)
+    df.NationalITy = NationEncoder.fit_transform(df.NationalITy)
+    df.PlaceofBirth = BirthEncoder.fit_transform(df.PlaceofBirth)
+    df.StageID = StagedEncoder.fit_transform(df.StageID)
+    df.GradeID = GradeEncoder.fit_transform(df.GradeID)
+    df.SectionID = SemesterEncoder.fit_transform(df.SectionID)
+    df.Topic  = TopicsEncoder.fit_transform(df.Topic)
+    df.Semester = SemesterEncoder.fit_transform(df.Semester)
+    df.Relation = RelationEncoder.fit_transform(df.Relation)
+    df.ParentAnsweringSurvey  = ParentschoolSatisfactionEncoder.fit_transform(df.ParentAnsweringSurvey)
+    df.ParentschoolSatisfaction = ParentschoolSatisfactionEncoder.fit_transform(df.ParentschoolSatisfaction)
+    df.StudentAbsenceDays = StagedEncoder.fit_transform(df.StudentAbsenceDays)
+    return df
+
+train_X = cope_X(train_X).values
+labelEncoder = LabelEncoder()
+train_Y = labelEncoder.fit_transform(train_Y)
+X_train, X_test, y_train, y_test = train_test_split(train_X, train_Y, test_size=.3, random_state=0)
+
+
 
 #chose n=10
 knn = KNeighborsClassifier(n_neighbors=10)
-knn.fit(x_train, y_train)
-knn_pred = knn.predict(x_test)
+knn.fit(X_train, y_train)
+knn_pred = knn.predict(X_test)
 knn_accuracy = accuracy_score(y_true=y_test, y_pred=knn_pred)
 print('The accuracy score of knn is:',knn_accuracy)
-
+from sklearn.model_selection import cross_val_score
+import matplotlib.pyplot as plt
+krange = range(1,33)
+ks = []
+bs = []
+for l in krange:
+    knn = KNeighborsClassifier(n_neighbors=l)
+    knn.fit(X_train, y_train)
+    scores = cross_val_score(knn,X_train,y_train,cv=5,scoring='accuracy')
+    knn_pred = knn.predict(X_test)
+    ks.append(scores.mean())
+    bs.append(accuracy_score(y_true=y_test, y_pred=knn_pred))
+    # print("%d-%f" %(l,clf.score(X_train, y_train)))
+plt.subplot(1,2,1)
+plt.plot(krange,ks)
+plt.xlabel('Value')
+plt.ylabel('Cross-Validated Accuracy')
+plt.subplot(1,2,2)
+plt.plot(krange,bs)
+plt.xlabel('bsValue')
+plt.ylabel('Accuracy')
+plt.show()
 
 # In[ ]:
 
