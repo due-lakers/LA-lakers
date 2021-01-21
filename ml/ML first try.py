@@ -19,9 +19,9 @@ stu=pd.read_csv(r'C:\Users\ZDX\Desktop\xAPI-Edu-Data.csv')
 
 
 
-print('raws and columns:',stu.shape)
+print('raws and columns:', stu.shape)
 print('----------------------------------------------')
-print('attributes:',stu.columns)
+print('attributes:', stu.columns)
 
 print('----------------------------------------------')
 print('(types of attributes):')
