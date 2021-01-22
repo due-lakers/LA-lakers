@@ -14,14 +14,14 @@ import seaborn as sns
 from sklearn.metrics import accuracy_score
 warnings.filterwarnings('ignore')
 
-stu=pd.read_csv(r'C:\Users\ZDX\Desktop\xAPI-Edu-Data.csv')
+stu=pd.read_csv('../data/edu-dataset.csv')
 
 
 
 
-print('raws and columns:',stu.shape)
+print('raws and columns:', stu.shape)
 print('----------------------------------------------')
-print('attributes:',stu.columns)
+print('attributes:', stu.columns)
 
 print('----------------------------------------------')
 print('(types of attributes):')
@@ -132,7 +132,7 @@ knn = KNeighborsClassifier(n_neighbors=10)
 knn.fit(x_train, y_train)
 knn_pred = knn.predict(x_test)
 knn_accuracy = accuracy_score(y_true=y_test, y_pred=knn_pred)
-print('The accuracy score of knn is:',knn_accuracy)
+print('\n The accuracy score of knn is:',knn_accuracy)
 
 
 # In[8]:
@@ -151,7 +151,6 @@ from sklearn.metrics import accuracy_score
 
 #dataset split
 
-stu=pd.read_csv(r'C:\Users\ZDX\Desktop\xAPI-Edu-Data.csv')
 x=stu.drop('Class',axis=1)
 x=x.drop('SectionID',axis=1)
 y=stu['Class']
@@ -166,7 +165,7 @@ nb =  GaussianNB()
 nb.fit(x_train, y_train)
 y_pred=nb.predict(x_test)
 
-print("Accuracy of naive bayees algorithm: ",nb.score(x_test,y_test))
+print("\n Accuracy of naive bayees algorithm: ",nb.score(x_test,y_test))
 
 
 # In[9]:
@@ -177,8 +176,31 @@ from sklearn.svm import SVC
 svm=SVC(random_state=1)
 svm.fit(x_train,y_train)
 
-#accuracy
+
+svclassifier = SVC(kernel='linear')
+svclassifier.fit(x_train, y_train)
+
+#accuracy svm
 print("accuracy of svm algorithm: ",svm.score(x_test,y_test))
+
+#new accuracy svm
+print("accuracy of svm algorithm (NEW): ",svclassifier.score(x_test,y_test))
+
+
+# make predictions with SVM
+print ('\n make predictions with SVM \n svclassifier.predict(x_test) \n')
+y_pred = svclassifier.predict(x_test)
+print('y_test ', y_test.shape)
+print('y_pred ', y_pred.shape)
+
+# evaluate the SVM algorithm using confusion matrix
+print('\n \n SVM evaluation')
+
+from sklearn.metrics import classification_report, confusion_matrix
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+print('\n \n Go to ml/svm.py for even better results and more info \n')
 
 
 # In[ ]:
