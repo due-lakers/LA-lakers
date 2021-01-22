@@ -23,6 +23,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 # train the algorithm
 # (1) simple SVM
 from sklearn.svm import SVC
+# (1.1) Simple SVM 
 svclassifier = SVC(random_state=10)
 svclassifier.fit(x_train,y_train)
 print('\n Simple SVM accuracy with *random-state 10: ', svclassifier.score(x_test, y_test))
@@ -35,6 +36,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 print('\n', confusion_matrix(y_test, y_pred))
 print('\n', classification_report(y_test, y_pred))
 
+# (1.2) Simple SVM linear
 svclassifier = SVC(kernel='linear')
 svclassifier.fit(x_train, y_train)
 print('\n Simple SVM accuracy *linear:  ', svclassifier.score(x_test, y_test))
