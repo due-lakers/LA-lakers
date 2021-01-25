@@ -16,10 +16,11 @@ def hello_world():
     l3 = [30., 52., 23., 33., 0., 1.]  # M
 
     # model1 = pickle.loads(s2)
-    # expected = test_y
+    # # expected = test_y
     # predicted = model1.predict(np.array(l1).reshape(1, -1))
-    # return str(predicted)
+    # # return str(predicted)
     return render_template('index.html')
+
 
 
 @app.route('/index')
