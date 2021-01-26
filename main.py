@@ -49,10 +49,10 @@ class Predict(Resource):
         inputs[12] = encode(result['StudentAbsenceDays'])
         print('form', inputs)
         data = {}
-        if inputs.__contains__(None):
-            data['code'] = 1
-            data['data'] = 'bad input, please check your input!'
-            return jsonify(data)
+        # if inputs.__contains__(None):
+        #     data['code'] = 1
+        #     data['data'] = 'bad input, please check your input!'
+        #     return jsonify(data)
         f = open('model/svm.model13', 'rb')
         with open('model/svm.model13', 'rb') as f:
             svm_clf, label_encoder = pickle.load(f)
