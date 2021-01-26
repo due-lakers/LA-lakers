@@ -4,9 +4,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 # read dataset
-stud_df = pd.read_csv('../data/edu-dataset.csv')
+stud_df = pd.read_csv('data/edu-dataset.csv')
 
 # pre-process data
 # (1) split the data into attributes and labels
@@ -17,7 +18,7 @@ x = pd.get_dummies(x)
 
 # (2) split the data into train and test sets
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=10) 
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=10)
 # random-state=10 had best results! 
 
 # train the algorithm
@@ -40,6 +41,7 @@ print('\n', classification_report(y_test, y_pred))
 svclassifier = SVC(kernel='linear')
 svclassifier.fit(x_train, y_train)
 print('\n Simple SVM accuracy *linear:  ', svclassifier.score(x_test, y_test))
+svclassifier
 
 # make predictions
 y_pred = svclassifier.predict(x_test)
