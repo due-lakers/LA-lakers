@@ -41,7 +41,7 @@ class Predict(Resource):
         inputs[4] = encode(result['GradeID'])
         inputs[5] = encode(result['SectionID'])
         inputs[6] = encode(result['Topic'])
-        inputs[7] = encode(result['Semester'])
+        inputs[7] = encode('FS' if result['Semester'] == 'F' else 'S')
         inputs[8] = result['raisedhands']
         inputs[9] = result['VisITedResources']
         inputs[10] = result['AnnouncementsView']
