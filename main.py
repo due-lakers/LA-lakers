@@ -48,12 +48,17 @@ class Predict(Resource):
         inputs[11] = result['Discussion']
         inputs[12] = encode(result['StudentAbsenceDays'])
         print('form', inputs)
+        data = {}
+        if inputs.__contains__(None):
+            data['code'] = 1
+            data['data'] = 'bad input, please check your input!'
+            return jsonify(data)
         f = open('model/svm.model13', 'rb')
         with open('model/svm.model13', 'rb') as f:
             svm_clf, label_encoder = pickle.load(f)
+
         r = svm_clf.predict(np.array(inputs).reshape(1, -1))
         it = label_encoder.inverse_transform(r)
-        data = {}
         data['code'] = 200
         data['data'] = it.tolist()[0]
         return jsonify(data)
