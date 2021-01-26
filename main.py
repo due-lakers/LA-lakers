@@ -1,16 +1,12 @@
-from flask import jsonify, Flask, render_template, request
-from flask_cors import CORS  # 跨域
+from flask import jsonify, Flask, request
+from flask_cors import CORS
 import pickle
 import pandas as pd
 import numpy as np
 from labelEncoder import encode
-from sklearn.preprocessing import LabelEncoder
-from flask_restful import Resource, Api, marshal_with
-import json
-from util.R import R
-from preprocessing import cope_X
+from flask_restful import Resource, Api
 
-app = Flask(__name__, static_folder='./static')
+app = Flask(__name__)
 app.debug = True
 CORS(app, supports_credentials=True)
 api = Api(app)
