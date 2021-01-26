@@ -43,8 +43,10 @@ def encode(value):
         'Quran': 9,
         'Science': 10,
         'Spanish': 11,
-        'F': 0,
+        'FS': 0,
         'S': 1,
+        'F': 0,
+        'M': 1,
         'Above-7': 0,
         'Under-7': 1
     }.get(value)

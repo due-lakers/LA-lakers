@@ -8,8 +8,7 @@ from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder,LabelBinarizer
 train_data = pd.read_csv("data\data.csv")
-
-str = {'VisITedResources': '0', 'raisedhands': '88', 'gender': 'M', 'AnnouncementsView': '88', 'Discussion': '88', 'Topic': 'IT', 'Semester': 'F', 'StageID': 'lowerlevel', 'SectionID': 'A', 'NationalITy': 'KW', 'GradeID': 'G-04', 'PlaceofBirth': 'KuwaIT', 'StudentAbsenceDays': 'Under-7'}
+train_data['Semester'] = np.where(train_data['Semester'] == 'F', 'FS', 'S')
 
 train_Y = train_data["Class"]
 train_X = train_data.drop(columns=['ParentAnsweringSurvey','ParentschoolSatisfaction','Relation','Class'])
@@ -110,40 +109,12 @@ ks = []
 
 # with open('model/svm.model13', 'wb+') as f:
 #   pickle.dump((svm_clf,label_encoder), f, pickle.HIGHEST_PROTOCOL) # uid, iid
-# # s=pickle.dumps(svm_clf)
-# # f=open('model/svm.model13', "wb+")
-# # f.write(s)
-# # f.close()
 # print ("Done\n")
 #
 #
 
-c = pd.DataFrame(str, index=[1])
-print(c.values)
-label_encoder.fit(c.values[0])
-aa = label_encoder.transform(c.values[0])
-print('aa',aa)
-print(label_encoder.classes_)
-with open('model/svm.model13', 'rb') as f:
-    svm_clf, label_encoder = pickle.load(f)
-with open('model/encoder', 'rb') as f:
-    genderEncoder, NationEncoder, BirthEncoder, StagedEncoder, GradeEncoder, TopicsEncoder, SemesterEncoder = pickle.load(f)
-c.gender = genderEncoder.fit_transform(c.gender)
-c.NationalITy = NationEncoder.fit_transform(c.NationalITy)
-c.PlaceofBirth = BirthEncoder.fit_transform(c.PlaceofBirth)
-c.StageID = StagedEncoder.fit_transform(c.StageID)
-c.GradeID = GradeEncoder.fit_transform(c.GradeID)
-c.SectionID = SemesterEncoder.fit_transform(c.SectionID)
-c.Topic  = TopicsEncoder.fit_transform(c.Topic)
-c.Semester = SemesterEncoder.fit_transform(c.Semester)
-c.StudentAbsenceDays = StagedEncoder.fit_transform(c.StudentAbsenceDays)
-r = svm_clf.predict(X_test)
-print('c', c.values)
-# d = cope_X(c).values
-# print(d)
-cc = [i for i in aa]
-print('cc',np.array(cc))
-r = svm_clf.predict(np.array(cc).reshape(1,-1))
-it = label_encoder.inverse_transform(r)
-print(it)
-it = label_encoder.inverse_transform(r)
+# c = pd.DataFrame(str, index=[1])
+# print(c.values)
+# label_encoder.fit(c.values[0])
+# aa = label_encoder.transform(c.values[0])
+# print('aa',aa)
