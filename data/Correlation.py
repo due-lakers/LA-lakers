@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-stu=pd.read_csv(r'C:\Users\ZDX\Desktop\Sheet1.csv')
+stu=pd.read_csv('data/Cleaned_Sheet1.csv')
 stu.head()
 
 
@@ -18,17 +18,13 @@ stu.head()
 
 
 
-
 # In[47]:
 
-
 num=pd.get_dummies(stu)#turn all attributes into numerical
-
-corrMatrix=num.corr()
-corrMatrix
-sns.heatmap(corrMatrix)
-
-
+sns.heatmap(num)
+num.head()
+plt.show()
+print(num.shape)
 # In[ ]:
 
 
