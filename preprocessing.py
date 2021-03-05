@@ -13,7 +13,6 @@ train_X = train_data.drop(columns=['ParentAnsweringSurvey', 'ParentschoolSatisfa
 krange = range(1, 10)
 names = train_X.columns
 
-
 def cope_X(df):
     genderEncoder = LabelEncoder()
     NationEncoder = LabelEncoder()
@@ -74,7 +73,6 @@ ks = []
 # plt.ylabel('Cross-Validated Accuracy')
 # plt.show()
 # count = 0
-
 
 # for i in range(len(X_train)):
 #     # print(y_hat[i])

@@ -150,7 +150,6 @@ class Predict(Resource):
         r = svm_clf.predict(np.array(inputs).reshape(1, -1))
         it = label_encoder.inverse_transform(r)
         predict_result = it.tolist()[0]
-
         result['result'] = predict_result
         result['createTime'] = datetime.datetime.now()
         # get the results that the same as the predictor
