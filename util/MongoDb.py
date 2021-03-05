@@ -1,6 +1,5 @@
 import pymongo
-import datetime
-from datetime import timedelta
+
 db_name = 'lakers'
 col_name = 'predict'
 uri = "mongodb://localhost:27017/"
@@ -18,7 +17,6 @@ def initDB(db_name, col_name):
 
 
 def getCol(db_name, col_name):
-
     return connect()[db_name][col_name]
 
 
@@ -28,6 +26,7 @@ def getResult(result):
 
 def getAll(db_name, col_name):
     return getCol(db_name, col_name).count_documents({})
+
 
 def getRecentNums(db_name, col_name):
     pipeline = [
@@ -41,7 +40,7 @@ def getRecentNums(db_name, col_name):
     return res
 
 
-def insert(col_name,new_doc):
+def insert(col_name, new_doc):
     try:
         coll = getCol(db_name, col_name)
         result = coll.insert_one(new_doc)

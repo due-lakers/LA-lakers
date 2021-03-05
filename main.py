@@ -1,4 +1,4 @@
-from flask import jsonify, Flask, request
+from flask import Flask, request
 from flask_cors import CORS
 import pickle
 import pandas as pd
